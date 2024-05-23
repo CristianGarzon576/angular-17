@@ -1,0 +1,16 @@
+<section class="flex w-full max-w-96 h-full items-center">
+    <form name="login-form" class="flex flex-col w-full border-2 border-gray h-auto" (ngSubmit)="login()">
+
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" [(ngModel)]="username" />
+    
+        <label for="password">Password</label>
+        <input id="password" name="password" autocomplete="off" type="password" [(ngModel)]="password" />
+
+        @if(!user && !isLoading()) {
+            <button type="submit" [disabled]="!username && !password"> Login </button>
+        } @else {
+            <div>Loading...</div>
+        }
+    </form>
+</section>

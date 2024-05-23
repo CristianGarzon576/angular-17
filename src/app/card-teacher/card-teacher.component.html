@@ -1,0 +1,12 @@
+<section class="rounded-xl border-2 border-gray mx-5">
+    <div>{{teacher.name}} - {{teacher.profession}}</div>
+    <div> Image </div>
+    <div>
+        <div>
+            @for (tag of teacher.tags; track tag) {
+                <span>{{tag}}</span>
+            }
+        </div>
+        <p>{{teacher.description}}</p>
+    </div>
+</section>

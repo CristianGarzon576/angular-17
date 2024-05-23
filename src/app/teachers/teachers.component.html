@@ -1,0 +1,9 @@
+<section>
+    @for (teacherEntry of teachers; track teacherEntry.id) {
+        <app-card-teacher [teacher]="teacherEntry" />
+    } @empty {
+        <div>
+            Not Teacher yet
+        </div>
+    }
+</section>

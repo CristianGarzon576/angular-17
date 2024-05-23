@@ -1,0 +1,29 @@
+<section #navbar>
+    <nav>
+        <div>
+            Logo
+        </div>
+        <div>
+            @if(user && user.username) {
+            <p>Welcome Back!!! {{user.username}}</p>
+            } @else {
+            <p>Information</p>
+            }
+        </div>
+        <div>
+            @if(user && user.username) {
+                <button (click)="logout()">Logout</button>
+            }
+        </div>
+    </nav>
+</section>
+
+<section #layout>
+    <app-teachers />
+</section>
+
+<section>
+    <footer>
+        Somethig like a Footer here
+    </footer>
+</section>
