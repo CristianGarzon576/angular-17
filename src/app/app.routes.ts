@@ -3,6 +3,8 @@ import { LandingComponent } from './landing/landing.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { AuthService } from '@services/auth.service';
+import { TeacherComponent } from './teachers/teacher.component';
+import { TeachersListComponent } from './teachers/teachers-list.component';
 
 export const routes: Routes = [
     {
@@ -11,9 +13,19 @@ export const routes: Routes = [
         providers: []
     },
     {
-        path: 'dashboard',
+        path: 'teachers',
         component: DashboardComponent,
         canActivate: [authGuard],
-        providers: []
+        canActivateChild: [authGuard],
+        children: [
+            {
+                path: '',
+                component: TeachersListComponent
+            },
+            {
+                path: ':id',
+                component: TeacherComponent
+            }
+        ]
     }
 ];

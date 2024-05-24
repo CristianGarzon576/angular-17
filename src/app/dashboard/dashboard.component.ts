@@ -2,24 +2,24 @@ import { Subscription, tap } from 'rxjs';
 
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 
-import { TeachersComponent } from '@app/teachers/teachers.component';
+import { TeachersListComponent } from '@app/teachers/teachers-list.component';
 import { User } from '@interfaces/auth.interfaces';
 import { AuthService } from '@services/auth.service';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TeachersComponent],
+  imports: [TeachersListComponent, RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnDestroy {
   user!: User | null;
   subscriptions: Subscription[] = [];
+  router: Router = inject(Router)
 
-  private authService: AuthService = inject(AuthService);
-
-  constructor() {
+  constructor(private authService: AuthService) {
     this.subscriptions.push(this.authService.getUser().pipe(tap(console.log)).subscribe(val => this.user = val))
   }
 
@@ -29,5 +29,6 @@ export class DashboardComponent implements OnDestroy {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['']);
   }
 }

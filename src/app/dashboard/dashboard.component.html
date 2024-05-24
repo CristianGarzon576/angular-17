@@ -1,9 +1,9 @@
-<section #navbar>
-    <nav>
-        <div>
+<section #navbar class="w-screen flex">
+    <nav class="flex flex-row justify-between w-full h-20 items-center">
+        <div class="min-w-40">
             Logo
         </div>
-        <div>
+        <div class="w-full">
             @if(user && user.username) {
             <p>Welcome Back!!! {{user.username}}</p>
             } @else {
@@ -18,11 +18,12 @@
     </nav>
 </section>
 
-<section #layout>
-    <app-teachers />
+<section #layout class="w-3/4 flex justify-center mx-auto my-5">
+    <!-- <app-teachers-list class="w-3/4" /> -->
+    <router-outlet></router-outlet>
 </section>
 
-<section>
+<section #footer class="w-screen">
     <footer>
         Somethig like a Footer here
     </footer>

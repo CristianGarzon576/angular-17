@@ -12,4 +12,11 @@ export class TeacherService {
             resolve(data);
         })
     }
+
+    getFilterTeachers(filterValue: string): Promise<Teacher[]> {
+        return new Promise((resolve) => {
+            const data = teachersData.filter(teacher => teacher.name.toLocaleLowerCase().includes(filterValue) || teacher.profession.join(', ').toLocaleLowerCase().includes(filterValue))
+            resolve(data);
+        })
+    }
 }

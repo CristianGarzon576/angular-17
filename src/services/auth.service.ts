@@ -10,9 +10,19 @@ export class AuthService {
 
     private user$: BehaviorSubject<User | null>;
     private id = Math.random();
+    isLoggedUser: boolean = false;
 
     constructor() {
         this.user$ = new BehaviorSubject<User | null>(null);
+        const localUser = localStorage.getItem('token');
+        if (!!localUser) {
+            const tokenUser = JSON.parse(localUser);
+            const findUser = usersData.find(user => user.id == tokenUser.id && user.username == tokenUser.username && JSON.stringify(user) == localUser);
+            if (findUser) {
+                this.isLoggedUser = true;
+                this.user$.next(tokenUser);
+            }
+        }
     }
 
     login(username: string, passowrd: string): Promise<User | null> {
@@ -25,7 +35,8 @@ export class AuthService {
             setTimeout(() => {
                 if (user != undefined) {
                     this.user$.next(user);
-                    console.log(this.user$.value);
+                    this.isLoggedUser = true;
+                    localStorage.setItem('token', JSON.stringify(user))
                     resolve(user)
                 } else {
                     resolve(null)
@@ -45,13 +56,6 @@ export class AuthService {
         console.log(this.id)
         return this.user$.asObservable();
     }
-
-    isLoggedUser(): boolean {
-        console.log(this.id);
-        console.log(this.user$.value);
-        return this.user$.value != null;
-    }
-
 }
 
 

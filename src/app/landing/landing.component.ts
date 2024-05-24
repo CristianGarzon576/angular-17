@@ -10,7 +10,7 @@ import { AuthService } from '@services/auth.service';
   imports: [FormsModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
-  providers: [AuthService]
+  providers: []
 })
 export class LandingComponent {
 
@@ -19,11 +19,9 @@ export class LandingComponent {
 
   user!: User;
   isLoading = signal<boolean>(false);
-
-  private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.authService.getUser().subscribe(val => console.log('user -> ', val));
   }
 
@@ -32,7 +30,7 @@ export class LandingComponent {
     const response = await this.authService.login(this.username, this.password);
     this.isLoading.update((val) => !val);
     if (response != null) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/teachers']);
     }
   }
 
