@@ -34,7 +34,7 @@ export class LandingComponent implements OnDestroy {
     const response = await this.authService.login(this.username, this.password);
     this.isLoading.update((val) => !val);
     if (response != null) {
-      this.router.navigate(['/teachers']);
+      this.router.navigate(['teachers']);
     }
   }
 

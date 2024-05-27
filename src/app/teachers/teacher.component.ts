@@ -9,10 +9,13 @@ import { TeacherService } from '@services/teachers.service';
   standalone: true,
   imports: [JsonPipe],
   template: `
-    <div> Template Works!!!</div>
-    {{teacher}}
     @if(teacher) {
-      <div> {{teacher | json}} </div>
+      <section>
+        <h2>{{teacher.name}}</h2>
+        <div>Imagen</div>
+        <div>{{teacher.profession.join(', ')}}</div>
+        <p>{{teacher.description}}</p>
+      </section>
     }
   `
 })
