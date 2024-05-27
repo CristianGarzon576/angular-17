@@ -9,7 +9,6 @@ import { usersData } from "src/mocks/auth.mock";
 export class AuthService {
 
     private user$: BehaviorSubject<User | null>;
-    private id = Math.random();
     isLoggedUser: boolean = false;
 
     constructor() {
@@ -26,7 +25,6 @@ export class AuthService {
     }
 
     login(username: string, passowrd: string): Promise<User | null> {
-        console.log(this.id);
         return new Promise((resolve) => {
             const users = usersData;
             const user = users.find((userEntry) =>
@@ -48,12 +46,12 @@ export class AuthService {
     logout(): Promise<Subject<User | null>> {
         return new Promise(resolve => {
             this.user$.next(null);
+            localStorage.removeItem('token')
             resolve(this.user$)
         })
     }
 
     getUser(): Observable<User | null> {
-        console.log(this.id)
         return this.user$.asObservable();
     }
 }

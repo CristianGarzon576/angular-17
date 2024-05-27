@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { authGuard } from './auth.guard';
-import { AuthService } from '@services/auth.service';
+import { authGuard } from './utils/guards/auth.guard';
 import { TeacherComponent } from './teachers/teacher.component';
 import { TeachersListComponent } from './teachers/teachers-list.component';
+import { getTeacherResolver } from './utils/resolvers/getTeacher.resolver';
 
 export const routes: Routes = [
     {
@@ -24,7 +24,10 @@ export const routes: Routes = [
             },
             {
                 path: ':id',
-                component: TeacherComponent
+                loadComponent: () => import('./teachers/teacher.component').then((c) => c.TeacherComponent),
+                resolve: {
+                    teacher: getTeacherResolver
+                }
             }
         ]
     }

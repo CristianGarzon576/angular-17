@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { CardTeacherComponent } from '@app/teachers/card-teacher.component';
 import { Teacher } from '@interfaces/teacher.interface';
 import { TeacherService } from '@services/teachers.service';
@@ -7,7 +8,7 @@ import { TeacherService } from '@services/teachers.service';
 @Component({
   selector: 'app-teachers-list',
   standalone: true,
-  imports: [CardTeacherComponent, FormsModule],
+  imports: [CardTeacherComponent, FormsModule, RouterLink],
   template: `
   <section class="flex gap-2 flex-wrap justify-center">
     <div class="w-full flex flex-row justify-end gap-2">
@@ -19,7 +20,7 @@ import { TeacherService } from '@services/teachers.service';
         }
     </div>
     @for (teacherEntry of teachers; track teacherEntry.id) {
-        <app-card-teacher class="rounded-xl border-2 border-gray p-2 max-w-80 w-auto" [teacher]="teacherEntry" />
+        <app-card-teacher [routerLink]="[teacherEntry.id]" class="rounded-xl border-2 border-gray p-2 max-w-80 w-auto" [teacher]="teacherEntry" />
     } @empty {
         <div>
             Not Teacher yet

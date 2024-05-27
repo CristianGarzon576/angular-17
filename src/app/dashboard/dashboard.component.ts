@@ -20,7 +20,7 @@ export class DashboardComponent implements OnDestroy {
   router: Router = inject(Router)
 
   constructor(private authService: AuthService) {
-    this.subscriptions.push(this.authService.getUser().pipe(tap(console.log)).subscribe(val => this.user = val))
+    this.subscriptions.push(this.authService.getUser().subscribe(val => this.user = val))
   }
 
   ngOnDestroy(): void {

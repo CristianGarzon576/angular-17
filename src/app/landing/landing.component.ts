@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '@interfaces/auth.interfaces';
 import { AuthService } from '@services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -12,17 +13,20 @@ import { AuthService } from '@services/auth.service';
   styleUrl: './landing.component.css',
   providers: []
 })
-export class LandingComponent {
+export class LandingComponent implements OnDestroy {
 
   username: string = '';
   password: string = '';
-
-  user!: User;
+  user!: User | null;
+  subscriptions: Subscription[] = []
   isLoading = signal<boolean>(false);
   private router: Router = inject(Router);
 
   constructor(private authService: AuthService) {
-    this.authService.getUser().subscribe(val => console.log('user -> ', val));
+    this.subscriptions.push(this.authService.getUser().subscribe(val => this.user = val));
+    if (this.user != null) {
+      this.router.navigate(['teachers'])
+    }
   }
 
   async login(): Promise<void> {
@@ -32,6 +36,10 @@ export class LandingComponent {
     if (response != null) {
       this.router.navigate(['/teachers']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 }

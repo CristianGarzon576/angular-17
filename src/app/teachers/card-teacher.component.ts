@@ -6,7 +6,7 @@ import { Teacher } from '@interfaces/teacher.interface';
   standalone: true,
   imports: [],
   template: `
-    <section class="flex flex-col w-full gap-2">
+    <section class="flex flex-col w-full gap-2 cursor-pointer">
       <p class="text-bold">{{currentTeacher()?.name}}</p>
       <div></div>
       <p class="text-semibold capitalize">{{profesions()}}</p>
