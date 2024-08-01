@@ -1,13 +1,14 @@
 import { JsonPipe } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Teacher } from '@interfaces/teacher.interface';
-import { TeacherService } from '@services/teachers.service';
+import { TagComponent } from '../commun/tag.component';
+import { RateComponent } from '@app/commun/rate.component';
 
 @Component({
   selector: 'app-teacher',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, TagComponent, RateComponent],
   template: `
     @if(teacher) {
       <section>
@@ -23,14 +24,12 @@ export class TeacherComponent implements OnInit {
 
   teacher!: Teacher;
   private readonly _router = inject(Router)
-  constructor(private activatedRoute: ActivatedRoute) { }
-
+  private readonly _activatedRoute = inject(ActivatedRoute);
 
   async ngOnInit(): Promise<void> {
-    this.teacher = this.activatedRoute.snapshot.data['teacher']
+    this.teacher = this._activatedRoute.snapshot.data['teacher']
     if (this.teacher == null) {
       this._router.navigate(['teachers']);
     }
   }
-
 }

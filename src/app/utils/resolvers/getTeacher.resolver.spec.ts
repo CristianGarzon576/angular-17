@@ -5,7 +5,7 @@ import { getTeacherResolver } from './getTeacher.resolver';
 import { Teacher } from '@interfaces/teacher.interface';
 
 describe('getTeacherResolver', () => {
-  const executeResolver: ResolveFn<Teacher> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Teacher | null> = (...resolverParameters) =>
     TestBed.runInInjectionContext(() => getTeacherResolver(...resolverParameters));
 
   beforeEach(() => {
